@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div v-for="person in user" :key="person[`id`]">
-        <div v-if="user !== undefined">
+        <div   v-for="person in users" :key="person[`id`]" >
             <h2>{{person[`avatar`]}}</h2>
             <p>{{person[`email`]}}</p>
         </div>
-    </div>
+
   </div>
 </template>
 
@@ -18,13 +17,7 @@ export default {
         url: `https://reqres.in/api/users`,
       })
       .then((response) => {
-        for (let i = 0; i < response[`data`].length; i++) {
-          this.user[`avatar`] = response[`data`][i][`avatar`];
-          this.user[`email`] = response[`data`][i][`email`];
-          this.user[`first_name`] = response[`data`][i][`first_name`];
-          this.user[`id`] = response[`data`][i][`id`];
-          this.user[`last_name`] = response[`data`][i][`last_name`];
-        }
+        this.users = response[`data`][`data`];
       })
       .catch((error) => {
         error;
@@ -32,13 +25,7 @@ export default {
   },
   data() {
     return {
-      user: {
-        avatar: undefined,
-        email: undefined,
-        first_name: undefined,
-        id: undefined,
-        last_name: undefined,
-      },
+      users: []
     };
   },
 };
